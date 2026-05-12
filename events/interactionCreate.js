@@ -1,6 +1,3 @@
-const album =
-    require('../commands/album');
-
 const troca =
     require('../commands/troca');
 
@@ -17,24 +14,6 @@ module.exports = async (
         if (
             !interaction.isButton()
         ) return;
-
-        if (
-
-            interaction.customId
-                .startsWith('album_')
-        ) {
-
-            return album.interaction(
-                interaction,
-                db
-            );
-        }
-
-        if (
-
-            interaction.customId
-                .startsWith('pacote_')
-        ) {
 
         if (
 

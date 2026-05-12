@@ -5,9 +5,6 @@ const {
     processarXP
 } = require('../utils/xp');
 
-const album =
-    require('../commands/album');
-
 const daily =
     require('../commands/daily');
 
@@ -40,14 +37,10 @@ module.exports = async (
 ) => {
 
     if (
-    message.author.bot
-) return;
-
-processarXP(message, db);
-
-    if (
         message.author.bot
     ) return;
+
+    processarXP(message, db);
 
     if (
         !message.content
@@ -64,16 +57,6 @@ processarXP(message, db);
             .toLowerCase();
 
     try {
-
-        if (
-            comando === '!album'
-        ) {
-
-            return album(
-                message,
-                db
-            );
-        }
 
         if (
             comando === '!figurinhas'
@@ -102,39 +85,39 @@ processarXP(message, db);
                 );
             }
 
-           const repetidasUsuario =
-    db.repetidas?.[usuario.id] || {};
+            const repetidasUsuario =
+                db.repetidas?.[usuario.id] || {};
 
-const figurinhas =
-    jogadores
-        .filter(jogador =>
+            const figurinhas =
+                jogadores
+                    .filter(jogador =>
 
-            albumUsuario.includes(jogador.id) ||
+                        albumUsuario.includes(jogador.id) ||
 
-            albumUsuario.includes(jogador.nome)
-        )
+                        albumUsuario.includes(jogador.nome)
+                    )
 
-        .map(jogador => {
+                    .map(jogador => {
 
-            const qtdRepetidas =
+                        const qtdRepetidas =
 
-                repetidasUsuario[jogador.id] ||
+                            repetidasUsuario[jogador.id] ||
 
-                repetidasUsuario[jogador.nome] ||
+                            repetidasUsuario[jogador.nome] ||
 
-                0;
+                            0;
 
-            const total =
-                1 + qtdRepetidas;
+                        const total =
+                            1 + qtdRepetidas;
 
-            return total > 1
+                        return total > 1
 
-                ? `• ${jogador.nome} (x${total})`
+                            ? `• ${jogador.nome} (x${total})`
 
-                : `• ${jogador.nome}`;
-        })
+                            : `• ${jogador.nome}`;
+                    })
 
-        .join('\n');
+                    .join('\n');
 
             return message.reply(
 
@@ -312,14 +295,14 @@ const figurinhas =
         }
 
         if (
-    comando === '!missoes'
-) {
+            comando === '!missoes'
+        ) {
 
-    return missoes(
-        message,
-        db
-    );
-}
+            return missoes(
+                message,
+                db
+            );
+        }
 
         if (
             comando === '!ranking'
@@ -522,7 +505,7 @@ const figurinhas =
                     }
                 )
 
-                .join('\n');
+                    .join('\n');
 
             return message.reply(
 

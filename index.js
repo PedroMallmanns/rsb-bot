@@ -37,7 +37,17 @@ client.once(
     'ready',
     async () => {
 
-        readyEvent(client);
+        try {
+
+            readyEvent(client);
+
+        } catch (error) {
+
+            console.error(
+                '❌ Erro no evento ready:',
+                error
+            );
+        }
     }
 );
 
@@ -45,10 +55,20 @@ client.on(
     'messageCreate',
     async (message) => {
 
-        messageCreate(
-            message,
-            db
-        );
+        try {
+
+            messageCreate(
+                message,
+                db
+            );
+
+        } catch (error) {
+
+            console.error(
+                '❌ Erro no messageCreate:',
+                error
+            );
+        }
     }
 );
 
@@ -56,13 +76,29 @@ client.on(
     'interactionCreate',
     async (interaction) => {
 
-        interactionCreate(
-            interaction,
-            db
-        );
+        try {
+
+            interactionCreate(
+                interaction,
+                db
+            );
+
+        } catch (error) {
+
+            console.error(
+                '❌ Erro no interactionCreate:',
+                error
+            );
+        }
     }
 );
 
 client.login(
     process.env.TOKEN
-);
+).catch(error => {
+
+    console.error(
+        '❌ Erro ao logar no bot:',
+        error
+    );
+});

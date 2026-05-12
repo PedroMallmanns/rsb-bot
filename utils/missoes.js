@@ -7,9 +7,6 @@ const {
     pegarSaldo
 } = require('./money');
 
-const jogadores =
-    require('../data/jogadores');
-
 const RECOMPENSA_MISSAO = 7;
 
 const TODAS_MISSOES = [

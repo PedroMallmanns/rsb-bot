@@ -12,47 +12,93 @@ const XP_PARA_RECOMPENSA = 50;
 const RECOMPENSA_XP = 7;
 
 function processarXP(message, db) {
-    if (message.author.bot) return;
-    if (message.content.startsWith('!')) return;
 
-    const userId = message.author.id;
-    const agora = Date.now();
+    try {
 
-    if (!db.xp) db.xp = {};
-    if (!db.xpCooldown) db.xpCooldown = {};
+        if (
+            message.author.bot
+        ) return;
 
-    if (!db.xp[userId]) {
-        db.xp[userId] = {
-            xp: 0,
-            ultimaRecompensa: 0
-        };
-    }
+        if (
+            message.content.startsWith('!')
+        ) return;
 
-    const ultimoXP = db.xpCooldown[userId] || 0;
+        const userId =
+            message.author.id;
 
-    if (agora - ultimoXP < COOLDOWN_XP) {
-        return;
-    }
+        const agora =
+            Date.now();
 
-    db.xpCooldown[userId] = agora;
-    db.xp[userId].xp += XP_POR_MENSAGEM;
+        if (!db.xp) db.xp = {};
+        if (!db.xpCooldown) db.xpCooldown = {};
 
-    const xpAtual = db.xp[userId].xp;
-    const ultimaRecompensa = db.xp[userId].ultimaRecompensa;
+        if (!db.xp[userId]) {
 
-    const recompensaAtual = Math.floor(xpAtual / XP_PARA_RECOMPENSA);
+            db.xp[userId] = {
 
-    if (recompensaAtual > ultimaRecompensa) {
-        db.xp[userId].ultimaRecompensa = recompensaAtual;
+                xp: 0,
 
-        adicionarSaldo(db, userId, RECOMPENSA_XP);
+                ultimaRecompensa: 0
+            };
+        }
 
-        message.channel.send(
-            `🎉 **${message.author.username}** chegou em **${xpAtual} XP** e ganhou **R$${RECOMPENSA_XP}**!`
+        const ultimoXP =
+            db.xpCooldown[userId] || 0;
+
+        if (
+            agora - ultimoXP <
+            COOLDOWN_XP
+        ) {
+
+            return;
+        }
+
+        db.xpCooldown[userId] =
+            agora;
+
+        db.xp[userId].xp +=
+            XP_POR_MENSAGEM;
+
+        const xpAtual =
+            db.xp[userId].xp;
+
+        const ultimaRecompensa =
+            db.xp[userId].ultimaRecompensa;
+
+        const recompensaAtual =
+            Math.floor(
+                xpAtual /
+                XP_PARA_RECOMPENSA
+            );
+
+        if (
+            recompensaAtual >
+            ultimaRecompensa
+        ) {
+
+            db.xp[userId].ultimaRecompensa =
+                recompensaAtual;
+
+            adicionarSaldo(
+                db,
+                userId,
+                RECOMPENSA_XP
+            );
+
+            message.channel.send(
+                `🎉 **${message.author.username}** chegou em **${xpAtual} XP** e ganhou **R$${RECOMPENSA_XP}**!`
+            ).catch(console.error);
+        }
+
+        salvarDB(db);
+
+    } catch (error) {
+
+        console.error(
+            '❌ Erro ao processar XP:',
+            error
         );
     }
-
-    salvarDB(db);
 }
 
 module.exports = {

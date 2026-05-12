@@ -7,23 +7,35 @@ function pegarSaldo(
     userId
 ) {
 
-    if (
-        !db.saldos
-    ) {
+    try {
 
-        db.saldos = {};
+        if (
+            !db.saldos
+        ) {
+
+            db.saldos = {};
+        }
+
+        if (
+            !db.saldos[userId]
+        ) {
+
+            db.saldos[userId] = 0;
+        }
+
+        salvarDB(db);
+
+        return db.saldos[userId];
+
+    } catch (error) {
+
+        console.error(
+            '❌ Erro ao pegar saldo:',
+            error
+        );
+
+        return 0;
     }
-
-    if (
-        !db.saldos[userId]
-    ) {
-
-        db.saldos[userId] = 0;
-    }
-
-    salvarDB(db);
-
-    return db.saldos[userId];
 }
 
 function adicionarSaldo(
@@ -32,23 +44,33 @@ function adicionarSaldo(
     valor
 ) {
 
-    if (
-        !db.saldos
-    ) {
+    try {
 
-        db.saldos = {};
+        if (
+            !db.saldos
+        ) {
+
+            db.saldos = {};
+        }
+
+        if (
+            !db.saldos[userId]
+        ) {
+
+            db.saldos[userId] = 0;
+        }
+
+        db.saldos[userId] += valor;
+
+        salvarDB(db);
+
+    } catch (error) {
+
+        console.error(
+            '❌ Erro ao adicionar saldo:',
+            error
+        );
     }
-
-    if (
-        !db.saldos[userId]
-    ) {
-
-        db.saldos[userId] = 0;
-    }
-
-    db.saldos[userId] += valor;
-
-    salvarDB(db);
 }
 
 function removerSaldo(
@@ -57,30 +79,40 @@ function removerSaldo(
     valor
 ) {
 
-    if (
-        !db.saldos
-    ) {
+    try {
 
-        db.saldos = {};
+        if (
+            !db.saldos
+        ) {
+
+            db.saldos = {};
+        }
+
+        if (
+            !db.saldos[userId]
+        ) {
+
+            db.saldos[userId] = 0;
+        }
+
+        db.saldos[userId] -= valor;
+
+        if (
+            db.saldos[userId] < 0
+        ) {
+
+            db.saldos[userId] = 0;
+        }
+
+        salvarDB(db);
+
+    } catch (error) {
+
+        console.error(
+            '❌ Erro ao remover saldo:',
+            error
+        );
     }
-
-    if (
-        !db.saldos[userId]
-    ) {
-
-        db.saldos[userId] = 0;
-    }
-
-    db.saldos[userId] -= valor;
-
-    if (
-        db.saldos[userId] < 0
-    ) {
-
-        db.saldos[userId] = 0;
-    }
-
-    salvarDB(db);
 }
 
 module.exports = {
