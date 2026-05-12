@@ -8,9 +8,6 @@ const {
 const album =
     require('../commands/album');
 
-const claim =
-    require('../commands/claim');
-
 const daily =
     require('../commands/daily');
 
@@ -291,16 +288,6 @@ const figurinhas =
 
             return message.reply(
                 `✅ Todas as repetidas do usuário \`${usuarioId}\` foram apagadas.`
-            );
-        }
-
-        if (
-            comando === '!claim'
-        ) {
-
-            return claim(
-                message,
-                db
             );
         }
 
