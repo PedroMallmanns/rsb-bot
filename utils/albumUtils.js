@@ -5,19 +5,6 @@ const {
     AttachmentBuilder
 } = require('discord.js');
 
-const {
-    createCanvas,
-    loadImage,
-    registerFont
-} = require('canvas');
-
-registerFont(
-    './assets/fonts/Inter_18pt-Bold.ttf',
-    {
-        family: 'Inter'
-    }
-);
-
 const FIGURINHAS_POR_PAGINA = 10;
 
 const fundoAlbumURL =
