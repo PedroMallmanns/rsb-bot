@@ -1,9 +1,6 @@
 const album =
     require('../commands/album');
 
-const claim =
-    require('../commands/claim');
-
 const troca =
     require('../commands/troca');
 
@@ -38,12 +35,6 @@ module.exports = async (
             interaction.customId
                 .startsWith('pacote_')
         ) {
-
-            return claim.interaction(
-                interaction,
-                db
-            );
-        }
 
         if (
 
